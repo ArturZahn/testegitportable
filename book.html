@@ -1,0 +1,257 @@
+<script>
+function chapterToWeek(n)
+{
+    if(n >= 1 && n <= 5) return 0;
+    if(n >= 6 && n <= 10) return 1;
+    if(n >= 11 && n <= 15) return 2;
+    if(n >= 16 && n <= 20) return 3;
+    if(n >= 21 && n <= 25) return 4;
+    if(n >= 26 && n <= 30) return 5;
+    if(n >= 31 && n <= 35) return 6;
+    if(n >= 36 && n <= 40) return 7;
+    if(n >= 41 && n <= 45) return 8;
+}
+
+function strToSecs(str)
+{
+    var tms = str.split(":");
+    var hour, min, sec;
+    if(tms.length == 2)
+    {
+        hour = 0;
+        min = parseInt(tms[0]);
+        sec = parseInt(tms[1]);
+    }
+    else if(tms.length == 3)
+    {
+        hour = parseInt(tms[0]);
+        min = parseInt(tms[1]);
+        sec = parseInt(tms[2]);
+    }
+    else return NaN;
+
+    return (((hour*60)+min)*60)+sec;
+}
+
+function secsToStr(sec)
+{
+    var hour, min;
+
+    hour = (sec-(sec%3600))/3600;
+    sec -= hour*3600;
+    
+    min = (sec-(sec%60))/60;
+    sec -= min*60;
+
+    if(hour > 0) return `${hour}:${min<10?"0":""}${min}:${sec<10?"0":""}${sec}`;
+    else return `${min<10?"0":""}${min}:${sec<10?"0":""}${sec}`;
+}
+
+var videos = [];
+
+videos.push({time: strToSecs("5:03"), part: 1, chapter: 1, link: "https://www.youtube.com/watch?v=0YqqfUF-mKc&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=1"});
+videos.push({time: strToSecs("5:09"), part: 2, chapter: 1, link: "https://www.youtube.com/watch?v=hwsLo8trI5A&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=2"});
+videos.push({time: strToSecs("6:51"), part: 3, chapter: 1, link: "https://www.youtube.com/watch?v=jcgZeYbUOSs&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=3"});
+videos.push({time: strToSecs("5:01"), part: 4, chapter: 2, link: "https://www.youtube.com/watch?v=dj2K5i-NioY&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=4"});
+videos.push({time: strToSecs("5:05"), part: 5, chapter: 2, link: "https://www.youtube.com/watch?v=-r_ihqWy2Ls&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=5"});
+videos.push({time: strToSecs("6:01"), part: 6, chapter: 2, link: "https://www.youtube.com/watch?v=1N90Z7KVz3E&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=6"});
+videos.push({time: strToSecs("5:05"), part: 7, chapter: 3, link: "https://www.youtube.com/watch?v=g6kelkgoSsI&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=7"});
+videos.push({time: strToSecs("5:09"), part: 8, chapter: 3, link: "https://www.youtube.com/watch?v=guJdYtwRjEw&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=8"});
+videos.push({time: strToSecs("6:44"), part: 9, chapter: 3, link: "https://www.youtube.com/watch?v=32fCwTtDBtA&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=9"});
+videos.push({time: strToSecs("5:01"), part: 10, chapter: 4, link: "https://www.youtube.com/watch?v=cCKpHm7QGvw&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=10"});
+videos.push({time: strToSecs("5:01"), part: 11, chapter: 4, link: "https://www.youtube.com/watch?v=EuVaFGPcx0c&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=11"});
+videos.push({time: strToSecs("5:01"), part: 12, chapter: 4, link: "https://www.youtube.com/watch?v=cuDFH4H8LwU&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=12"});
+videos.push({time: strToSecs("3:35"), part: 13, chapter: 4, link: "https://www.youtube.com/watch?v=FiYpeTcp1M0&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=13"});
+videos.push({time: strToSecs("5:09"), part: 14, chapter: 5, link: "https://www.youtube.com/watch?v=Pxpy2sNXpG8&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=14"});
+videos.push({time: strToSecs("5:09"), part: 15, chapter: 5, link: "https://www.youtube.com/watch?v=1MOnydQfigE&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=15"});
+videos.push({time: strToSecs("4:55"), part: 16, chapter: 5, link: "https://www.youtube.com/watch?v=oXGJwIe68Co&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=16"});
+videos.push({time: strToSecs("5:01"), part: 17, chapter: 6, link: "https://www.youtube.com/watch?v=FcpSXyL64H4&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=17"});
+videos.push({time: strToSecs("5:17"), part: 18, chapter: 6, link: "https://www.youtube.com/watch?v=yllo_1tqM4M&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=18"});
+videos.push({time: strToSecs("5:01"), part: 19, chapter: 6, link: "https://www.youtube.com/watch?v=FUSgHV5dAVg&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=19"});
+videos.push({time: strToSecs("4:23"), part: 20, chapter: 6, link: "https://www.youtube.com/watch?v=xEU2ZwmHAfA&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=20"});
+videos.push({time: strToSecs("5:01"), part: 21, chapter: 7, link: "https://www.youtube.com/watch?v=3T8EM74Q8Qc&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=21"});
+videos.push({time: strToSecs("5:11"), part: 22, chapter: 7, link: "https://www.youtube.com/watch?v=1whiLET3moQ&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=22"});
+videos.push({time: strToSecs("5:07"), part: 23, chapter: 7, link: "https://www.youtube.com/watch?v=H7AYwILZDxk&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=23"});
+videos.push({time: strToSecs("5:01"), part: 24, chapter: 7, link: "https://www.youtube.com/watch?v=WwkiZR9mczc&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=24"});
+videos.push({time: strToSecs("3:03"), part: 25, chapter: 7, link: "https://www.youtube.com/watch?v=7xVBwcVxdrU&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=25"});
+videos.push({time: strToSecs("5:01"), part: 26, chapter: 8, link: "https://www.youtube.com/watch?v=L1t5cDdYIGs&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=26"});
+videos.push({time: strToSecs("5:01"), part: 27, chapter: 8, link: "https://www.youtube.com/watch?v=ft2TNKDKMSY&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=27"});
+videos.push({time: strToSecs("4:25"), part: 28, chapter: 8, link: "https://www.youtube.com/watch?v=AjUpQmd9qWQ&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=28"});
+videos.push({time: strToSecs("5:01"), part: 29, chapter: 9, link: "https://www.youtube.com/watch?v=2xAawclnG00&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=29"});
+videos.push({time: strToSecs("4:59"), part: 30, chapter: 9, link: "https://www.youtube.com/watch?v=yXa0Uh664Sw&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=30"});
+videos.push({time: strToSecs("5:01"), part: 31, chapter: 9, link: "https://www.youtube.com/watch?v=d9w5C5q9m-c&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=31"});
+videos.push({time: strToSecs("6:17"), part: 32, chapter: 9, link: "https://www.youtube.com/watch?v=1uYW15DLMLM&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=32"});
+videos.push({time: strToSecs("5:11"), part: 33, chapter: 10, link: "https://www.youtube.com/watch?v=Eqys0hqIfjQ&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=33"});
+videos.push({time: strToSecs("5:01"), part: 34, chapter: 10, link: "https://www.youtube.com/watch?v=2SG76ZZ89lA&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=34"});
+videos.push({time: strToSecs("4:45"), part: 35, chapter: 10, link: "https://www.youtube.com/watch?v=DyN7gJRwngg&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=35"});
+videos.push({time: strToSecs("5:09"), part: 36, chapter: 11, link: "https://www.youtube.com/watch?v=R6dzDwWd1xk&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=36"});
+videos.push({time: strToSecs("5:11"), part: 37, chapter: 11, link: "https://www.youtube.com/watch?v=rwgsiNxHthI&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=37"});
+videos.push({time: strToSecs("5:11"), part: 38, chapter: 11, link: "https://www.youtube.com/watch?v=YB3JOqLjg4Q&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=38"});
+videos.push({time: strToSecs("3:49"), part: 39, chapter: 11, link: "https://www.youtube.com/watch?v=rdwtNNj1Jsc&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=39"});
+videos.push({time: strToSecs("5:05"), part: 40, chapter: 12, link: "https://www.youtube.com/watch?v=xk5GQHdDf2w&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=40"});
+videos.push({time: strToSecs("5:11"), part: 41, chapter: 12, link: "https://www.youtube.com/watch?v=0nrbh5N4pM0&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=41"});
+videos.push({time: strToSecs("5:15"), part: 42, chapter: 12, link: "https://www.youtube.com/watch?v=0h5zP9hxhGU&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=42"});
+videos.push({time: strToSecs("3:31"), part: 43, chapter: 12, link: "https://www.youtube.com/watch?v=lzhdmHS8ucc&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=43"});
+videos.push({time: strToSecs("5:01"), part: 44, chapter: 13, link: "https://www.youtube.com/watch?v=b0HhzdDDBcw&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=44"});
+videos.push({time: strToSecs("5:09"), part: 45, chapter: 13, link: "https://www.youtube.com/watch?v=VmOYSYfspBc&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=45"});
+videos.push({time: strToSecs("5:01"), part: 46, chapter: 13, link: "https://www.youtube.com/watch?v=fPsrsAQFx24&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=46"});
+videos.push({time: strToSecs("4:15"), part: 47, chapter: 13, link: "https://www.youtube.com/watch?v=MNxaD0WOyXI&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=47"});
+videos.push({time: strToSecs("5:03"), part: 48, chapter: 14, link: "https://www.youtube.com/watch?v=dZ_0WwKfrKA&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=48"});
+videos.push({time: strToSecs("5:07"), part: 49, chapter: 14, link: "https://www.youtube.com/watch?v=dqbeG9DB1Nk&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=49"});
+videos.push({time: strToSecs("4:29"), part: 50, chapter: 14, link: "https://www.youtube.com/watch?v=f3VV89c8rbU&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=50"});
+videos.push({time: strToSecs("5:03"), part: 51, chapter: 15, link: "https://www.youtube.com/watch?v=JndUc6H_Xx0&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=51"});
+videos.push({time: strToSecs("5:01"), part: 52, chapter: 15, link: "https://www.youtube.com/watch?v=bCZ7Z1pbJ54&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=52"});
+videos.push({time: strToSecs("5:43"), part: 53, chapter: 15, link: "https://www.youtube.com/watch?v=38bE89AvVLU&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=53"});
+videos.push({time: strToSecs("5:07"), part: 54, chapter: 16, link: "https://www.youtube.com/watch?v=6EAMYdhO-Os&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=54"});
+videos.push({time: strToSecs("5:11"), part: 55, chapter: 16, link: "https://www.youtube.com/watch?v=VvqELqxUT60&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=55"});
+videos.push({time: strToSecs("4:11"), part: 56, chapter: 16, link: "https://www.youtube.com/watch?v=2YOYF9dtJkA&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=56"});
+videos.push({time: strToSecs("5:09"), part: 57, chapter: 17, link: "https://www.youtube.com/watch?v=jCHzfPLgQA8&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=57"});
+videos.push({time: strToSecs("5:05"), part: 58, chapter: 17, link: "https://www.youtube.com/watch?v=q96pVR1z_Jk&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=58"});
+videos.push({time: strToSecs("5:43"), part: 59, chapter: 17, link: "https://www.youtube.com/watch?v=prjS-68_cNg&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=59"});
+videos.push({time: strToSecs("5:11"), part: 60, chapter: 18, link: "https://www.youtube.com/watch?v=f_aO2k-wDBs&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=60"});
+videos.push({time: strToSecs("5:01"), part: 61, chapter: 18, link: "https://www.youtube.com/watch?v=U1-QtXZiGGk&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=61"});
+videos.push({time: strToSecs("5:59"), part: 62, chapter: 18, link: "https://www.youtube.com/watch?v=pkK8EWyaj6M&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=62"});
+videos.push({time: strToSecs("5:03"), part: 63, chapter: 19, link: "https://www.youtube.com/watch?v=FK7xkr4x3m8&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=63"});
+videos.push({time: strToSecs("5:09"), part: 64, chapter: 19, link: "https://www.youtube.com/watch?v=Pz4GPWStym4&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=64"});
+videos.push({time: strToSecs("4:11"), part: 65, chapter: 19, link: "https://www.youtube.com/watch?v=jGZ-HgSQ7LQ&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=65"});
+videos.push({time: strToSecs("5:01"), part: 66, chapter: 20, link: "https://www.youtube.com/watch?v=6J6twDqjkxA&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=66"});
+videos.push({time: strToSecs("5:01"), part: 67, chapter: 20, link: "https://www.youtube.com/watch?v=_oTijEMBiLk&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=67"});
+videos.push({time: strToSecs("5:09"), part: 68, chapter: 20, link: "https://www.youtube.com/watch?v=GOKNPufIKSA&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=68"});
+videos.push({time: strToSecs("5:07"), part: 69, chapter: 20, link: "https://www.youtube.com/watch?v=sg2pkcjMt4I&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=69"});
+videos.push({time: strToSecs("3:01"), part: 70, chapter: 20, link: "https://www.youtube.com/watch?v=0d5a5eSMnow&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=70"});
+videos.push({time: strToSecs("5:01"), part: 71, chapter: 21, link: "https://www.youtube.com/watch?v=EEr7ygEinaY&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=71"});
+videos.push({time: strToSecs("5:29"), part: 72, chapter: 21, link: "https://www.youtube.com/watch?v=WWJIq43iZ0k&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=72"});
+videos.push({time: strToSecs("4:46"), part: 73, chapter: 21, link: "https://www.youtube.com/watch?v=4MnB6td_zY0&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=73"});
+videos.push({time: strToSecs("5:17"), part: 74, chapter: 22, link: "https://www.youtube.com/watch?v=KzMz_-pvcdQ&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=74"});
+videos.push({time: strToSecs("5:11"), part: 75, chapter: 22, link: "https://www.youtube.com/watch?v=15RaXdndmeA&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=75"});
+videos.push({time: strToSecs("6:45"), part: 76, chapter: 22, link: "https://www.youtube.com/watch?v=QyY2XUaNneI&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=76"});
+videos.push({time: strToSecs("5:01"), part: 77, chapter: 23, link: "https://www.youtube.com/watch?v=mXBnTIfWHOo&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=77"});
+videos.push({time: strToSecs("5:01"), part: 78, chapter: 23, link: "https://www.youtube.com/watch?v=x7m-TQ-BIJw&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=78"});
+videos.push({time: strToSecs("5:17"), part: 79, chapter: 23, link: "https://www.youtube.com/watch?v=Bb55xJE0sMw&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=79"});
+videos.push({time: strToSecs("5:07"), part: 80, chapter: 24, link: "https://www.youtube.com/watch?v=PcquO-lXblc&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=80"});
+videos.push({time: strToSecs("5:15"), part: 81, chapter: 24, link: "https://www.youtube.com/watch?v=Ka6Q1gnuq2I&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=81"});
+videos.push({time: strToSecs("6:19"), part: 82, chapter: 24, link: "https://www.youtube.com/watch?v=cMIifAlY-Qw&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=82"});
+videos.push({time: strToSecs("5:13"), part: 83, chapter: 25, link: "https://www.youtube.com/watch?v=t37SqyyvaA8&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=83"});
+videos.push({time: strToSecs("5:15"), part: 84, chapter: 25, link: "https://www.youtube.com/watch?v=UPTLsKdO4xE&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=84"});
+videos.push({time: strToSecs("6:17"), part: 85, chapter: 25, link: "https://www.youtube.com/watch?v=RNRU3QmHR2Q&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=85"});
+videos.push({time: strToSecs("5:03"), part: 86, chapter: 26, link: "https://www.youtube.com/watch?v=rkYflWBltGc&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=86"});
+videos.push({time: strToSecs("5:11"), part: 87, chapter: 26, link: "https://www.youtube.com/watch?v=taX51fWXJUs&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=87"});
+videos.push({time: strToSecs("5:15"), part: 88, chapter: 26, link: "https://www.youtube.com/watch?v=9XDqPDSXkS4&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=88"});
+videos.push({time: strToSecs("5:01"), part: 89, chapter: 27, link: "https://www.youtube.com/watch?v=nvV2xzZr_eA&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=89"});
+videos.push({time: strToSecs("5:35"), part: 90, chapter: 27, link: "https://www.youtube.com/watch?v=rDI4vGaBy5w&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=90"});
+videos.push({time: strToSecs("7:01"), part: 91, chapter: 27, link: "https://www.youtube.com/watch?v=C524B8CcS8U&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=91"});
+videos.push({time: strToSecs("5:06"), part: 92, chapter: 28, link: "https://www.youtube.com/watch?v=OQqYUdbwCrc&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=92"});
+videos.push({time: strToSecs("5:01"), part: 93, chapter: 28, link: "https://www.youtube.com/watch?v=cv-7DhrfBTs&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=93"});
+videos.push({time: strToSecs("2:41"), part: 94, chapter: 28, link: "https://www.youtube.com/watch?v=b7_HnHocW7Y&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=94"});
+videos.push({time: strToSecs("5:01"), part: 95, chapter: 29, link: "https://www.youtube.com/watch?v=lsHlDr6F-LY&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=95"});
+videos.push({time: strToSecs("5:11"), part: 96, chapter: 29, link: "https://www.youtube.com/watch?v=SZSL7vVFeN8&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=96"});
+videos.push({time: strToSecs("3:56"), part: 97, chapter: 29, link: "https://www.youtube.com/watch?v=l1puRGDDkb4&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=97"});
+videos.push({time: strToSecs("5:01"), part: 98, chapter: 30, link: "https://www.youtube.com/watch?v=CkZ6V58JwBo&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=98"});
+videos.push({time: strToSecs("5:16"), part: 99, chapter: 30, link: "https://www.youtube.com/watch?v=1KExusBDQOM&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=99"});
+videos.push({time: strToSecs("5:16"), part: 100, chapter: 30, link: "https://www.youtube.com/watch?v=_S6qcZVPito&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=100"});
+videos.push({time: strToSecs("3:26"), part: 101, chapter: 30, link: "https://www.youtube.com/watch?v=0W1Ly-ELyUo&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=101"});
+videos.push({time: strToSecs("5:11"), part: 102, chapter: 31, link: "https://www.youtube.com/watch?v=LccOsMofJ2k&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=102"});
+videos.push({time: strToSecs("5:01"), part: 103, chapter: 31, link: "https://www.youtube.com/watch?v=9_1zfGSw9XM&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=103"});
+videos.push({time: strToSecs("5:16"), part: 104, chapter: 31, link: "https://www.youtube.com/watch?v=V8qBKn49WIc&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=104"});
+videos.push({time: strToSecs("5:06"), part: 105, chapter: 31, link: "https://www.youtube.com/watch?v=ppYcSzXEykc&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=105"});
+videos.push({time: strToSecs("3:36"), part: 106, chapter: 31, link: "https://www.youtube.com/watch?v=xfCi7-rgvAQ&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=106"});
+videos.push({time: strToSecs("5:01"), part: 107, chapter: 32, link: "https://www.youtube.com/watch?v=JMNSrMhn6Tg&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=107"});
+videos.push({time: strToSecs("5:11"), part: 108, chapter: 32, link: "https://www.youtube.com/watch?v=N-qOdr-dGKw&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=108"});
+videos.push({time: strToSecs("5:06"), part: 109, chapter: 32, link: "https://www.youtube.com/watch?v=0rIqTVJarT4&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=109"});
+videos.push({time: strToSecs("5:01"), part: 110, chapter: 33, link: "https://www.youtube.com/watch?v=efDqZPFmBdQ&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=110"});
+videos.push({time: strToSecs("5:06"), part: 111, chapter: 33, link: "https://www.youtube.com/watch?v=UkPk2t1UAGg&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=111"});
+videos.push({time: strToSecs("6:16"), part: 112, chapter: 33, link: "https://www.youtube.com/watch?v=uCI89XIA1E0&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=112"});
+videos.push({time: strToSecs("5:31"), part: 113, chapter: 33, link: "https://www.youtube.com/watch?v=6PVdwytFAoE&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=113"});
+videos.push({time: strToSecs("5:06"), part: 114, chapter: 34, link: "https://www.youtube.com/watch?v=EsHoZg3qKdA&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=114"});
+videos.push({time: strToSecs("5:01"), part: 115, chapter: 34, link: "https://www.youtube.com/watch?v=A0GIQRoYsCE&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=115"});
+videos.push({time: strToSecs("5:56"), part: 116, chapter: 34, link: "https://www.youtube.com/watch?v=w5w07bNz6mY&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=116"});
+videos.push({time: strToSecs("5:06"), part: 117, chapter: 35, link: "https://www.youtube.com/watch?v=zDNr13YJOqE&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=117"});
+videos.push({time: strToSecs("5:11"), part: 118, chapter: 35, link: "https://www.youtube.com/watch?v=Sk-Z7kdsSB4&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=118"});
+videos.push({time: strToSecs("5:06"), part: 119, chapter: 35, link: "https://www.youtube.com/watch?v=x-qP7lMF75g&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=119"});
+videos.push({time: strToSecs("3:41"), part: 120, chapter: 35, link: "https://www.youtube.com/watch?v=5kj4fiGHaTs&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=120"});
+videos.push({time: strToSecs("5:06"), part: 121, chapter: 36, link: "https://www.youtube.com/watch?v=-SUeYJtpt0g&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=121"});
+videos.push({time: strToSecs("5:06"), part: 122, chapter: 36, link: "https://www.youtube.com/watch?v=eM78G7N-CO4&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=122"});
+videos.push({time: strToSecs("7:51"), part: 123, chapter: 36, link: "https://www.youtube.com/watch?v=IeUQEn85fc8&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=123"});
+videos.push({time: strToSecs("5:06"), part: 124, chapter: 37, link: "https://www.youtube.com/watch?v=Kiq-XVXH8Wg&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=124"});
+videos.push({time: strToSecs("5:01"), part: 125, chapter: 37, link: "https://www.youtube.com/watch?v=MfxtM-_9n6A&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=125"});
+videos.push({time: strToSecs("5:36"), part: 126, chapter: 37, link: "https://www.youtube.com/watch?v=zGZiHz4p0Jk&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=126"});
+videos.push({time: strToSecs("5:01"), part: 127, chapter: 38, link: "https://www.youtube.com/watch?v=v6vVIALIHW4&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=127"});
+videos.push({time: strToSecs("5:06"), part: 128, chapter: 38, link: "https://www.youtube.com/watch?v=Yk6k8jogw2E&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=128"});
+videos.push({time: strToSecs("5:16"), part: 129, chapter: 38, link: "https://www.youtube.com/watch?v=MMaMBsNoO4c&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=129"});
+videos.push({time: strToSecs("4:06"), part: 130, chapter: 38, link: "https://www.youtube.com/watch?v=nlqlLkwGlQ0&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=130"});
+videos.push({time: strToSecs("5:11"), part: 131, chapter: 39, link: "https://www.youtube.com/watch?v=2VVGHIx8umo&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=131"});
+videos.push({time: strToSecs("5:11"), part: 132, chapter: 39, link: "https://www.youtube.com/watch?v=Gt5s9HRjZC8&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=132"});
+videos.push({time: strToSecs("5:06"), part: 133, chapter: 39, link: "https://www.youtube.com/watch?v=8k91BCF05-4&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=133"});
+videos.push({time: strToSecs("6:46"), part: 134, chapter: 39, link: "https://www.youtube.com/watch?v=XmCndi0ENyE&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=134"});
+videos.push({time: strToSecs("5:01"), part: 135, chapter: 40, link: "https://www.youtube.com/watch?v=aPnh_4CWd_M&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=135"});
+videos.push({time: strToSecs("5:21"), part: 136, chapter: 40, link: "https://www.youtube.com/watch?v=LaI4jHq8tWI&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=136"});
+videos.push({time: strToSecs("5:21"), part: 137, chapter: 40, link: "https://www.youtube.com/watch?v=uohRgLxC1UE&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=137"});
+videos.push({time: strToSecs("5:06"), part: 138, chapter: 41, link: "https://www.youtube.com/watch?v=NNwzAjexKHw&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=138"});
+videos.push({time: strToSecs("5:11"), part: 139, chapter: 41, link: "https://www.youtube.com/watch?v=SP9tbmnUDkk&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=139"});
+videos.push({time: strToSecs("3:11"), part: 140, chapter: 41, link: "https://www.youtube.com/watch?v=Hpncq5H5y9U&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=140"});
+videos.push({time: strToSecs("5:01"), part: 141, chapter: 42, link: "https://www.youtube.com/watch?v=zObnXhXakfE&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=141"});
+videos.push({time: strToSecs("5:31"), part: 142, chapter: 42, link: "https://www.youtube.com/watch?v=eWX7n7mC304&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=142"});
+videos.push({time: strToSecs("5:01"), part: 143, chapter: 42, link: "https://www.youtube.com/watch?v=DkMsjNDzBz4&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=143"});
+videos.push({time: strToSecs("5:06"), part: 144, chapter: 43, link: "https://www.youtube.com/watch?v=mkXJptfZlms&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=144"});
+videos.push({time: strToSecs("6:31"), part: 145, chapter: 43, link: "https://www.youtube.com/watch?v=tbL3qj6XIg4&amp;list=PLaerKGX4YofSDzE4qzl4_P_zGnJtOC1OE&amp;index=145"});
+
+
+var weeks = [];
+
+
+function computeWeeks()
+{
+    videos.forEach(video => {
+        var nWeek = chapterToWeek(video.chapter)
+        if(typeof weeks[nWeek] == "undefined")
+        {
+            weeks[nWeek] = {
+                totalTime: 0,
+                chapters: []
+            }
+        }
+
+        weeks[nWeek].totalTime += video.time;
+        weeks[nWeek].chapters.push(video);
+    });
+}
+
+function showWeeks()
+{
+    var log = `<table border="1">`;
+
+    weeks.forEach((week, i) => {
+        // log += `<h3>Week ${i}:</h3><p> ${secsToStr(week.totalTime)} - ${week.chapters.length} parts<p>`;
+        log += `
+<tr>
+    <td>
+        Week ${i}
+    </td>
+    <td>
+        chapters ${week.chapters[0].chapter} - ${week.chapters[week.chapters.length-1].chapter}
+    </td>
+    <td>
+        ${secsToStr(week.totalTime)} - ${week.chapters.length} parts
+    </td>
+    <td>
+        <a href="${week.chapters[0].link}">Fist part</a>
+    </td>
+</tr>
+    `;
+    });
+
+    log += `</table>`;
+
+    console.log(log);
+    document.getElementById("log").innerHTML = log;
+}
+
+window.onload = ()=>{
+    computeWeeks();
+    showWeeks();
+}
+
+
+</script>
+
+<div id="log"></div>
